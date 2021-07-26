@@ -44,10 +44,6 @@
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
-| card_number     | integer    | null: false                    |
-| exp_month       | integer    | null: false                    |
-| exp_year        | integer    | null: false                    |
-| security_code   | integer    | null: false                    |
 | postal_code     | string     | null: false                    |
 | region          | string     | null: false                    |
 | city            | string     | null: false                    |
