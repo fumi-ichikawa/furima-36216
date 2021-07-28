@@ -22,11 +22,11 @@ class User < ApplicationRecord
                confirmation: true do
     validates :password
   end
-  # メールアドレスに＠を含む制約
-  with_options presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: '@を含めて入力してください' },
-               uniqueness: { case_sensitive: false } do
-    validates :email
-  end
+  # # メールアドレスに＠を含む制約
+  # with_options presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: '@を含めて入力してください' },
+  #              uniqueness: { case_sensitive: false } do
+  #   validates :email
+  # end
 end
 
 # class User < ApplicationRecord
