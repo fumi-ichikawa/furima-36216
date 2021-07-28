@@ -9,7 +9,7 @@ class User < ApplicationRecord
     validates :nickname
     validates :birthday
     validates :email, uniqueness: { case_sensitive: false },
-                      format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+                      format: { with: /@.+/ }
     with_options format: { with: /\A[ぁ-んァ-ン一-龥々ー]+\z/ } do
       validates :last_name
       validates :first_name
