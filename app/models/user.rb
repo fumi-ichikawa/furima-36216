@@ -8,8 +8,8 @@ class User < ApplicationRecord
   with_options presence: true do
     validates :nickname
     validates :birthday
-    validates :email, uniqueness: {case_sensitive: false},
-                      format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i}
+    validates :email, uniqueness: { case_sensitive: false },
+                      format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
     with_options format: { with: /\A[ぁ-んァ-ン一-龥々ー]+\z/ } do
       validates :last_name
       validates :first_name
@@ -18,24 +18,9 @@ class User < ApplicationRecord
       validates :last_name_kana
       validates :first_name_kana
     end
-    with_options format: { with: PASSWORD_REGEX, message: 'には英字と数字の両方を含めて設定してください' }, length: { minimum: 6 },confirmation: true do
+    with_options format: { with: PASSWORD_REGEX, message: 'には英字と数字の両方を含めて設定してください' }, length: { minimum: 6 },
+                 confirmation: true do
       validates :password
     end
   end
 end
-
-
-  # # 全角かな/カナ漢字の制約
-  # with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥々ー]+\z/ } do
-
-  # end
-  # # カタカナの制約
-  # with_options presence: true, format: { with: /\A[ァ-ヶー－]+\z/ } do
-  #   validates :last_name_kana, presence: true
-  #   validates :first_name_kana, presence: true
-  # end
-  # # パスワード英数字混合
-  # with_options presence: true, format: { with: PASSWORD_REGEX, message: 'には英字と数字の両方を含めて設定してください' }, length: { minimum: 6 },
-  #              confirmation: true do
-  #   validates :password
-  # end

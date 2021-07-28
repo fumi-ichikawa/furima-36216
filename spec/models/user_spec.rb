@@ -37,13 +37,13 @@ describe User, type: :model do
           another_user.valid?
           expect(another_user.errors.full_messages).to include('Email has already been taken')
         end
- 
+
         it 'emailは、@を含む必要があること' do
           @user.email = 'testtest'
           @user.valid?
-          expect(@user.errors.full_messages).to include("Email is invalid")
+          expect(@user.errors.full_messages).to include('Email is invalid')
         end
-        
+
         it 'passwordが空では登録できないこと' do
           @user.password = ''
           @user.valid?
@@ -79,8 +79,8 @@ describe User, type: :model do
         end
 
         it 'passwordは、文字のみでは保存できないこと' do
-          @user.password = 'あいうえおか'
-          @user.password_confirmation = 'あいうえおか'
+          @user.password = 'abcdefg'
+          @user.password_confirmation = 'abcdefg'
           @user.valid?
           expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
         end
