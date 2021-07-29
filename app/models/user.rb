@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable
 
   has_many :items
-  
+
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
 
   with_options presence: true do
