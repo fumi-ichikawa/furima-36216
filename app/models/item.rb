@@ -7,13 +7,14 @@ class Item < ApplicationRecord
   belongs_to :shipping_date
 
   with_options presence: true do
+    validates :image
     validates :title
     validates :description
-    validates :price, inclusion: { in: (300..9999999)}
+    validates :price, inclusion: { in: (300..9_999_999) }
   end
 
-  #ジャンルの選択が「--」の時は保存できないようにする
-  with_options numericality: { other_than: 1 , message: "can't be blank"} do
+  # ジャンルの選択が「--」の時は保存できないようにする
+  with_options numericality: { other_than: 1, message: "can't be blank" } do
     validates :category_id
     validates :status_id
     validates :postage_id

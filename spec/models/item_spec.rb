@@ -1,16 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  
   describe '#create' do
     before do
       @item = FactoryBot.build(:item)
     end
 
     describe '出品新規登録' do
-
       context '新規登録できるとき' do
-
         it '全ての項目が入力されていれば登録できること' do
           expect(@item).to be_valid
         end
@@ -18,10 +15,14 @@ RSpec.describe Item, type: :model do
           @item.price = 300
           expect(@item).to be_valid
         end
-
       end
-    
+
       context '新規登録できないとき' do
+        it 'imageが空では登録できないこと' do
+          @item.image = nil
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Image can't be blank")
+        end
 
         it 'titleが空では登録できないこと' do
           @item.title = ''
@@ -68,21 +69,20 @@ RSpec.describe Item, type: :model do
         it 'priceが空では登録できないこと' do
           @item.price = ''
           @item.valid?
-          expect(@item.errors.full_messages).to include("Price can't be blank", "Price is not included in the list")
+          expect(@item.errors.full_messages).to include("Price can't be blank", 'Price is not included in the list')
         end
 
         it 'priceが300円未満では登録できないこと' do
           @item.price = 299
           @item.valid?
-          expect(@item.errors.full_messages).to include("Price is not included in the list")
+          expect(@item.errors.full_messages).to include('Price is not included in the list')
         end
 
         it 'priceが10000000円以上では登録できないこと' do
-          @item.price = 10000000
+          @item.price = 10_000_000
           @item.valid?
-          expect(@item.errors.full_messages).to include("Price is not included in the list")
+          expect(@item.errors.full_messages).to include('Price is not included in the list')
         end
-
       end
     end
   end
