@@ -9,6 +9,7 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :title
     validates :description
+    validates :price, inclusion: { in: (300..9999999)}
   end
 
   #ジャンルの選択が「--」の時は保存できないようにする
