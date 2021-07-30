@@ -22,6 +22,9 @@ class Item < ApplicationRecord
     validates :shipping_date_id
   end
 
+  validates :price, numericality: { with: /\A[0-9]+\z/, message: 'は半角数字で入力して下さい' }
+
+
   belongs_to :user
   has_one_attached :image
 end

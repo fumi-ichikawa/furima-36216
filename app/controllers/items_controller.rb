@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index] #:showは詳細機能で追加予定
 
   def index
-    @items = Item.order('created_at DESC')
+    # @items = Item.order('created_at DESC') 一覧表示機能実装時に記述予定
   end
 
   def new
