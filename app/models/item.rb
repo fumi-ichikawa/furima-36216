@@ -26,4 +26,5 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one_attached :image
+  # has_one :shopping_record 　←　商品購入機能実装時に記述予定
 end
