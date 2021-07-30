@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index] #:showは詳細機能で追加予定
 
   def index
-    query = "SELECT * FROM items"
+    query = "SELECT * FROM items order by created_at DESC"
     @items = Item.find_by_sql(query)
   end
 
