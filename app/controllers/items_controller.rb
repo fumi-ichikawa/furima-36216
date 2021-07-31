@@ -3,7 +3,6 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update]
   before_action :move_to_index, only: [:edit, :update]
 
-
   def index
     query = 'SELECT * FROM items order by created_at DESC'
     @items = Item.find_by_sql(query)
@@ -56,5 +55,4 @@ class ItemsController < ApplicationController
   def move_to_index
     redirect_to action: :index unless @item.user_id == current_user.id
   end
-
 end
