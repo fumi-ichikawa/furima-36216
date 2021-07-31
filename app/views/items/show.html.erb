@@ -23,7 +23,7 @@
         <%= "¥" + @item.price.to_s(:delimited)%>
       </span>
       <span class="item-postage">
-        <%= "配送料負担" %>
+        <%= @item.postage.name %>
       </span>
     </div>
 
