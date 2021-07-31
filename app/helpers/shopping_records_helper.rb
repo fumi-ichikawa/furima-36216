@@ -1,0 +1,2 @@
+module ShoppingRecordsHelper
+end
