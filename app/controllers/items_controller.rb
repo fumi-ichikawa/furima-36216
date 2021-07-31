@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index] #:showは詳細機能で追加予定
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     query = 'SELECT * FROM items order by created_at DESC'
@@ -17,6 +17,10 @@ class ItemsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @item = Item.find(params[:id])
   end
 
   private
