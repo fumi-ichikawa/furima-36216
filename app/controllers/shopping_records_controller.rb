@@ -4,6 +4,12 @@ class ShoppingRecordsController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @shopping_profile = ShoppingProfile.new
+    if current_user == @item.user
+      redirect_to root_path
+    end
+    if @item.shopping_record.present?
+      redirect_to root_path
+    end
   end
 
   def create
@@ -32,4 +38,5 @@ class ShoppingRecordsController < ApplicationController
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
   end
+
 end

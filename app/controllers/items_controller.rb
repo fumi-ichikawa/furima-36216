@@ -25,6 +25,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if @item.shopping_record.present?
+      redirect_to root_path
+    end
   end
 
   def update
