@@ -21,7 +21,6 @@ RSpec.describe ShoppingProfile, type: :model do
     end
 
     context '内容に問題がある場合' do
-
       it 'tokenが空だと保存できないこと' do
         @shopping_profile.token = ''
         @shopping_profile.valid?
@@ -43,14 +42,13 @@ RSpec.describe ShoppingProfile, type: :model do
       it 'postal_codeが空だと保存できないこと' do
         @shopping_profile.postal_code = ''
         @shopping_profile.valid?
-        expect(@shopping_profile.errors.full_messages).to include("Postal code はハイフンあり半角数字で入力して下さい")
+        expect(@shopping_profile.errors.full_messages).to include('Postal code はハイフンあり半角数字で入力して下さい')
       end
 
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @shopping_profile.postal_code = '123456'
         @shopping_profile.valid?
-        expect(@shopping_profile.errors.full_messages).to include("Postal code はハイフンあり半角数字で入力して下さい")
-
+        expect(@shopping_profile.errors.full_messages).to include('Postal code はハイフンあり半角数字で入力して下さい')
       end
       it 'ship_regionが空では登録できないこと' do
         @shopping_profile.ship_region_id = 1
@@ -66,22 +64,22 @@ RSpec.describe ShoppingProfile, type: :model do
       it 'addressが空だと保存できないこと' do
         @shopping_profile.address = ''
         @shopping_profile.valid?
-        expect(@shopping_profile.errors.full_messages).to include("Address can't be blank",)
+        expect(@shopping_profile.errors.full_messages).to include("Address can't be blank")
       end
       it 'phoneが空だと保存できないこと' do
         @shopping_profile.phone = ''
         @shopping_profile.valid?
-        expect(@shopping_profile.errors.full_messages).to include( "Phone can't be blank","Phone はハイフンなし半角数字で入力して下さい")
+        expect(@shopping_profile.errors.full_messages).to include("Phone can't be blank", 'Phone はハイフンなし半角数字で入力して下さい')
       end
       it 'phoneは10桁以上11桁以内でないと保存できないこと' do
         @shopping_profile.phone = '123456789'
         @shopping_profile.valid?
-        expect(@shopping_profile.errors.full_messages).to include()
+        expect(@shopping_profile.errors.full_messages).to include
       end
       it 'phoneは半角数字以外は保存できないこと' do
         @shopping_profile.phone = 'ａｂｃｄｅｆｇｈｉｊ'
         @shopping_profile.valid?
-        expect(@shopping_profile.errors.full_messages).to include("Phone はハイフンなし半角数字で入力して下さい")
+        expect(@shopping_profile.errors.full_messages).to include('Phone はハイフンなし半角数字で入力して下さい')
       end
     end
   end
