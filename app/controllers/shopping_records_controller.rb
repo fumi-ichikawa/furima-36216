@@ -1,15 +1,17 @@
 class ShoppingRecordsController < ApplicationController
-
+  before_action :authenticate_user!
+  
   def index
     @item = Item.find(params[:item_id])
-    @shopping_record = ShoppingRecord.new
+    @shopping_profile = ShoppingProfile.new
   end
 
   def create
     @item = Item.find(params[:item_id])
-    @shopping_record = ShoppingRecord.new(order_params)
-    if @shopping_record.valid?
-      @shopping_record.save
+    @shopping_profile = ShoppingProfile.new(shopping_params)
+    if @shopping_profile.valid?
+      pay_item
+      @shopping_profile.save
       return redirect_to root_path
     else
       render :index
@@ -18,7 +20,16 @@ class ShoppingRecordsController < ApplicationController
 
   private
 
-  def order_params
-    params.require(:shopping_record).permit(:nickname, :email, :encrypted_password, :first_name, :last_name, :first_name_kana, :last_name_kana, :birthday, :image, :title, :description, :category_id, :status_id, :postage_id, :ship_region_id, :shipping_date_id, :price, :postal_code, :city, :address, :building_name, :phone)
+  def shopping_params
+    params.require(:shopping_profile).permit(:ship_region_id, :postal_code, :city, :address, :building_name, :phone ).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,  # 商品の値段
+      card: shopping_params[:token],    # カードトークン
+      currency: 'jpy'                 # 通貨の種類（日本円）
+    )
   end
 end
