@@ -1,8 +1,8 @@
 class ShoppingRecordsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     @shopping_profile = ShoppingProfile.new
     
     if current_user == @item.user || @item.shopping_record.present?
@@ -11,7 +11,6 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @shopping_profile = ShoppingProfile.new(shopping_params)
     if @shopping_profile.valid?
       pay_item
@@ -38,4 +37,9 @@ class ShoppingRecordsController < ApplicationController
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
   end
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
 end
