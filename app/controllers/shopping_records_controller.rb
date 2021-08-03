@@ -40,8 +40,6 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def move_to_root_path
-    if current_user == @item.user || @item.shopping_record.present?
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user == @item.user || @item.shopping_record.present?
   end
 end

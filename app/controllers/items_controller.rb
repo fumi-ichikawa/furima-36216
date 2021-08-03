@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
   before_action :move_to_index, only: [:edit, :update, :destroy]
   before_action :sold_out_item, only: [:edit, :update, :destroy]
 
-
   def index
     query = 'SELECT * FROM items order by created_at DESC'
     @items = Item.find_by_sql(query)

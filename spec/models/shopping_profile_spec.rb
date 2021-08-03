@@ -74,7 +74,7 @@ RSpec.describe ShoppingProfile, type: :model do
       it 'phoneは9桁以下では保存できないこと' do
         @shopping_profile.phone = '123456789'
         @shopping_profile.valid?
-        expect(@shopping_profile.errors.full_messages).to include("Phone はハイフンなし半角数字で入力して下さい")
+        expect(@shopping_profile.errors.full_messages).to include('Phone はハイフンなし半角数字で入力して下さい')
       end
       it 'phoneは12桁以上では登録できないこと' do
         @shopping_profile.phone = '123456789012'
