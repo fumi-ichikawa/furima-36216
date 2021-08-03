@@ -71,12 +71,32 @@ RSpec.describe ShoppingProfile, type: :model do
         @shopping_profile.valid?
         expect(@shopping_profile.errors.full_messages).to include("Phone can't be blank")
       end
-      it 'phoneは10桁以上11桁以内でないと保存できないこと' do
+      it 'phoneは9桁以下では保存できないこと' do
         @shopping_profile.phone = '123456789'
         @shopping_profile.valid?
         expect(@shopping_profile.errors.full_messages).to include("Phone はハイフンなし半角数字で入力して下さい")
       end
+      it 'phoneは12桁以上では登録できないこと' do
+        @shopping_profile.phone = '123456789012'
+        @shopping_profile.valid?
+        expect(@shopping_profile.errors.full_messages).to include('Phone はハイフンなし半角数字で入力して下さい')
+      end
       it 'phoneは半角数字以外は保存できないこと' do
+        @shopping_profile.phone = '１２３４５６７８９０'
+        @shopping_profile.valid?
+        expect(@shopping_profile.errors.full_messages).to include('Phone はハイフンなし半角数字で入力して下さい')
+      end
+      it 'phoneは数字のみでないと登録できないこと（英数字混合）' do
+        @shopping_profile.phone = 'abc1234567'
+        @shopping_profile.valid?
+        expect(@shopping_profile.errors.full_messages).to include('Phone はハイフンなし半角数字で入力して下さい')
+      end
+      it 'phoneは数字のみでないと登録できないこと（ハイフンあり）' do
+        @shopping_profile.phone = '090-1234-56'
+        @shopping_profile.valid?
+        expect(@shopping_profile.errors.full_messages).to include('Phone はハイフンなし半角数字で入力して下さい')
+      end
+      it 'phoneは全角文字では登録できないこと' do
         @shopping_profile.phone = 'ａｂｃｄｅｆｇｈｉｊ'
         @shopping_profile.valid?
         expect(@shopping_profile.errors.full_messages).to include('Phone はハイフンなし半角数字で入力して下さい')
