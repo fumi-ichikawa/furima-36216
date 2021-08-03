@@ -1,13 +1,10 @@
 class ShoppingRecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
+  before_action :move_to_root_path, only: [:index, :create]
 
   def index
     @shopping_profile = ShoppingProfile.new
-    
-    if current_user == @item.user || @item.shopping_record.present?
-      redirect_to root_path
-    end
   end
 
   def create
@@ -42,4 +39,9 @@ class ShoppingRecordsController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  def move_to_root_path
+    if current_user == @item.user || @item.shopping_record.present?
+      redirect_to root_path
+    end
+  end
 end
