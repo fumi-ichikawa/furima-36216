@@ -4,8 +4,10 @@ class ShoppingRecordsController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
     @shopping_profile = ShoppingProfile.new
-    redirect_to root_path if current_user == @item.user
-    redirect_to root_path if @item.shopping_record.present?
+    
+    if current_user == @item.user || @item.shopping_record.present?
+      redirect_to root_path
+    end
   end
 
   def create
