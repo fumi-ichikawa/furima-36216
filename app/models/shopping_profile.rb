@@ -15,6 +15,9 @@ class ShoppingProfile
     validates :user_id
     validates :item_id
     validates :token
+    # with_options format: { with: /\A\d{3}-\d{4}\z/, message: 'はハイフンあり半角数字で入力して下さい' } do
+    #   validates :postal_code
+    # end
   end
 
   def save
